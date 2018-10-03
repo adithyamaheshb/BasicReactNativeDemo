@@ -16,13 +16,27 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { counter : 0 }
+    this.state.customStyles = { opacity: 1 }
+    
+    setInterval(() => {
+      let counter = this.state.counter;
+      this.setState({ customStyles: {
+        opacity: 0
+      },
+    counter: counter + 1 })
+    },1000);
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Text style={styles.welcome}>Counter : {this.state.counter}</Text>
+        <Text style={[styles.instructions, this.state.customStyles]}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
